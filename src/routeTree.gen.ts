@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAppDefinicoesPerfilRouteImport } from './routes/_authenticated/app.definicoes.perfil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,15 +34,23 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppDefinicoesPerfilRoute =
+  AuthenticatedAppDefinicoesPerfilRouteImport.update({
+    id: '/definicoes/perfil',
+    path: '/definicoes/perfil',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/definicoes/perfil': typeof AuthenticatedAppDefinicoesPerfilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/app/definicoes/perfil': typeof AuthenticatedAppDefinicoesPerfilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -49,18 +58,20 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/definicoes/perfil': typeof AuthenticatedAppDefinicoesPerfilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/'
+  fullPaths: '/' | '/app' | '/app/' | '/app/definicoes/perfil'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app'
+  to: '/' | '/app' | '/app/definicoes/perfil'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/_authenticated/app'
     | '/_authenticated/app/'
+    | '/_authenticated/app/definicoes/perfil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,15 +109,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/definicoes/perfil': {
+      id: '/_authenticated/app/definicoes/perfil'
+      path: '/definicoes/perfil'
+      fullPath: '/app/definicoes/perfil'
+      preLoaderRoute: typeof AuthenticatedAppDefinicoesPerfilRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
   }
 }
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+  AuthenticatedAppDefinicoesPerfilRoute: typeof AuthenticatedAppDefinicoesPerfilRoute
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+  AuthenticatedAppDefinicoesPerfilRoute: AuthenticatedAppDefinicoesPerfilRoute,
 }
 
 const AuthenticatedAppRouteWithChildren =
