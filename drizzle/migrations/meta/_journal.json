@@ -15,6 +15,13 @@
       "when": 1789717050133,
       "tag": "0001_barberos_rls_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789717547661,
+      "tag": "0002_storage_policies_shop_media",
+      "breakpoints": true
     }
   ]
 }
