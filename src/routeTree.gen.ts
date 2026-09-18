@@ -10,33 +10,132 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as NovaPalavraPasseRouteImport } from './routes/nova-palavra-passe'
+import { Route as RecuperarRouteImport } from './routes/recuperar'
+import { Route as RegistarRouteImport } from './routes/registar'
+import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
+import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAppDefinicoesPerfilRouteImport } from './routes/_authenticated/app.definicoes.perfil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaPalavraPasseRoute = NovaPalavraPasseRouteImport.update({
+  id: '/nova-palavra-passe',
+  path: '/nova-palavra-passe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecuperarRoute = RecuperarRouteImport.update({
+  id: '/recuperar',
+  path: '/recuperar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistarRoute = RegistarRouteImport.update({
+  id: '/registar',
+  path: '/registar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppDefinicoesPerfilRoute =
+  AuthenticatedAppDefinicoesPerfilRouteImport.update({
+    id: '/definicoes/perfil',
+    path: '/definicoes/perfil',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-palavra-passe': typeof NovaPalavraPasseRoute
+  '/recuperar': typeof RecuperarRoute
+  '/registar': typeof RegistarRoute
+  '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/definicoes/perfil': typeof AuthenticatedAppDefinicoesPerfilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-palavra-passe': typeof NovaPalavraPasseRoute
+  '/recuperar': typeof RecuperarRoute
+  '/registar': typeof RegistarRoute
+  '/app': typeof AuthenticatedAppIndexRoute
+  '/app/definicoes/perfil': typeof AuthenticatedAppDefinicoesPerfilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/entrar': typeof EntrarRoute
+  '/nova-palavra-passe': typeof NovaPalavraPasseRoute
+  '/recuperar': typeof RecuperarRoute
+  '/registar': typeof RegistarRoute
+  '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/definicoes/perfil': typeof AuthenticatedAppDefinicoesPerfilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/entrar'
+    | '/nova-palavra-passe'
+    | '/recuperar'
+    | '/registar'
+    | '/app'
+    | '/app/'
+    | '/app/definicoes/perfil'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/entrar'
+    | '/nova-palavra-passe'
+    | '/recuperar'
+    | '/registar'
+    | '/app'
+    | '/app/definicoes/perfil'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/entrar'
+    | '/nova-palavra-passe'
+    | '/recuperar'
+    | '/registar'
+    | '/_authenticated/app'
+    | '/_authenticated/app/'
+    | '/_authenticated/app/definicoes/perfil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  EntrarRoute: typeof EntrarRoute
+  NovaPalavraPasseRoute: typeof NovaPalavraPasseRoute
+  RecuperarRoute: typeof RecuperarRoute
+  RegistarRoute: typeof RegistarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +147,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova-palavra-passe': {
+      id: '/nova-palavra-passe'
+      path: '/nova-palavra-passe'
+      fullPath: '/nova-palavra-passe'
+      preLoaderRoute: typeof NovaPalavraPasseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recuperar': {
+      id: '/recuperar'
+      path: '/recuperar'
+      fullPath: '/recuperar'
+      preLoaderRoute: typeof RecuperarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registar': {
+      id: '/registar'
+      path: '/registar'
+      fullPath: '/registar'
+      preLoaderRoute: typeof RegistarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/app': {
+      id: '/_authenticated/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AuthenticatedAppRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/': {
+      id: '/_authenticated/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/definicoes/perfil': {
+      id: '/_authenticated/app/definicoes/perfil'
+      path: '/definicoes/perfil'
+      fullPath: '/app/definicoes/perfil'
+      preLoaderRoute: typeof AuthenticatedAppDefinicoesPerfilRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
   }
 }
 
+interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+  AuthenticatedAppDefinicoesPerfilRoute: typeof AuthenticatedAppDefinicoesPerfilRoute
+}
+
+const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+  AuthenticatedAppDefinicoesPerfilRoute: AuthenticatedAppDefinicoesPerfilRoute,
+}
+
+const AuthenticatedAppRouteWithChildren =
+  AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  EntrarRoute: EntrarRoute,
+  NovaPalavraPasseRoute: NovaPalavraPasseRoute,
+  RecuperarRoute: RecuperarRoute,
+  RegistarRoute: RegistarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
