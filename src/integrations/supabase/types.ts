@@ -14,7 +14,931 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          barber_id: string
+          barbershop_id: string
+          cancel_reason: string | null
+          cancelled_at: string | null
+          completed_at: string | null
+          confirmed_at: string | null
+          created_at: string
+          created_by: string | null
+          customer_id: string
+          deposit_cents: number
+          deposit_status: Database["public"]["Enums"]["deposit_state"]
+          duration_min: number
+          ends_at: string
+          haircut_id: string | null
+          hold_expires_at: string | null
+          id: string
+          internal_note: string | null
+          manage_token: string
+          no_show_at: string | null
+          price_cents: number
+          service_id: string
+          source: Database["public"]["Enums"]["booking_source"]
+          started_at: string | null
+          starts_at: string
+          status: Database["public"]["Enums"]["appointment_status"]
+        }
+        Insert: {
+          barber_id: string
+          barbershop_id: string
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_id: string
+          deposit_cents?: number
+          deposit_status?: Database["public"]["Enums"]["deposit_state"]
+          duration_min: number
+          ends_at: string
+          haircut_id?: string | null
+          hold_expires_at?: string | null
+          id?: string
+          internal_note?: string | null
+          manage_token?: string
+          no_show_at?: string | null
+          price_cents: number
+          service_id: string
+          source?: Database["public"]["Enums"]["booking_source"]
+          started_at?: string | null
+          starts_at: string
+          status?: Database["public"]["Enums"]["appointment_status"]
+        }
+        Update: {
+          barber_id?: string
+          barbershop_id?: string
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_id?: string
+          deposit_cents?: number
+          deposit_status?: Database["public"]["Enums"]["deposit_state"]
+          duration_min?: number
+          ends_at?: string
+          haircut_id?: string | null
+          hold_expires_at?: string | null
+          id?: string
+          internal_note?: string | null
+          manage_token?: string
+          no_show_at?: string | null
+          price_cents?: number
+          service_id?: string
+          source?: Database["public"]["Enums"]["booking_source"]
+          started_at?: string | null
+          starts_at?: string
+          status?: Database["public"]["Enums"]["appointment_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_barber_id_fkey"
+            columns: ["barber_id"]
+            isOneToOne: false
+            referencedRelation: "barbers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_haircut_id_fkey"
+            columns: ["haircut_id"]
+            isOneToOne: false
+            referencedRelation: "haircuts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          barbershop_id: string | null
+          created_at: string
+          diff: Json | null
+          entity: string | null
+          entity_id: string | null
+          id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          barbershop_id?: string | null
+          created_at?: string
+          diff?: Json | null
+          entity?: string | null
+          entity_id?: string | null
+          id?: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          barbershop_id?: string | null
+          created_at?: string
+          diff?: Json | null
+          entity?: string | null
+          entity_id?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      barber_services: {
+        Row: {
+          barber_id: string
+          service_id: string
+        }
+        Insert: {
+          barber_id: string
+          service_id: string
+        }
+        Update: {
+          barber_id?: string
+          service_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "barber_services_barber_id_fkey"
+            columns: ["barber_id"]
+            isOneToOne: false
+            referencedRelation: "barbers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "barber_services_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      barbers: {
+        Row: {
+          barbershop_id: string
+          bio: string | null
+          display_name: string
+          id: string
+          is_active: boolean
+          photo_url: string | null
+          rating_avg: number
+          rating_count: number
+          sort_order: number
+          user_id: string | null
+          years_experience: number
+        }
+        Insert: {
+          barbershop_id: string
+          bio?: string | null
+          display_name: string
+          id?: string
+          is_active?: boolean
+          photo_url?: string | null
+          rating_avg?: number
+          rating_count?: number
+          sort_order?: number
+          user_id?: string | null
+          years_experience?: number
+        }
+        Update: {
+          barbershop_id?: string
+          bio?: string | null
+          display_name?: string
+          id?: string
+          is_active?: boolean
+          photo_url?: string | null
+          rating_avg?: number
+          rating_count?: number
+          sort_order?: number
+          user_id?: string | null
+          years_experience?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "barbers_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      barbershop_members: {
+        Row: {
+          barbershop_id: string
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          barbershop_id: string
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          barbershop_id?: string
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "barbershop_members_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      barbershops: {
+        Row: {
+          address: string | null
+          cancellation_rule: Database["public"]["Enums"]["cancellation_rule"]
+          cover_url: string | null
+          created_at: string
+          deposit_enabled: boolean
+          deposit_hold_min: number
+          deposit_mode: Database["public"]["Enums"]["deposit_mode"]
+          deposit_value: number
+          description: string | null
+          id: string
+          instagram: string | null
+          lat: number | null
+          lng: number | null
+          logo_url: string | null
+          maps_url: string | null
+          max_advance_days: number
+          min_lead_time_min: number
+          name: string
+          phone: string | null
+          plan_id: string | null
+          slot_interval_min: number
+          slug: string
+          status: Database["public"]["Enums"]["shop_status"]
+          theme_key: string
+          timezone: string
+          whatsapp: string | null
+        }
+        Insert: {
+          address?: string | null
+          cancellation_rule?: Database["public"]["Enums"]["cancellation_rule"]
+          cover_url?: string | null
+          created_at?: string
+          deposit_enabled?: boolean
+          deposit_hold_min?: number
+          deposit_mode?: Database["public"]["Enums"]["deposit_mode"]
+          deposit_value?: number
+          description?: string | null
+          id?: string
+          instagram?: string | null
+          lat?: number | null
+          lng?: number | null
+          logo_url?: string | null
+          maps_url?: string | null
+          max_advance_days?: number
+          min_lead_time_min?: number
+          name: string
+          phone?: string | null
+          plan_id?: string | null
+          slot_interval_min?: number
+          slug: string
+          status?: Database["public"]["Enums"]["shop_status"]
+          theme_key?: string
+          timezone?: string
+          whatsapp?: string | null
+        }
+        Update: {
+          address?: string | null
+          cancellation_rule?: Database["public"]["Enums"]["cancellation_rule"]
+          cover_url?: string | null
+          created_at?: string
+          deposit_enabled?: boolean
+          deposit_hold_min?: number
+          deposit_mode?: Database["public"]["Enums"]["deposit_mode"]
+          deposit_value?: number
+          description?: string | null
+          id?: string
+          instagram?: string | null
+          lat?: number | null
+          lng?: number | null
+          logo_url?: string | null
+          maps_url?: string | null
+          max_advance_days?: number
+          min_lead_time_min?: number
+          name?: string
+          phone?: string | null
+          plan_id?: string | null
+          slot_interval_min?: number
+          slug?: string
+          status?: Database["public"]["Enums"]["shop_status"]
+          theme_key?: string
+          timezone?: string
+          whatsapp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "barbershops_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      customers: {
+        Row: {
+          barbershop_id: string
+          created_at: string
+          email: string | null
+          id: string
+          last_visit_at: string | null
+          name: string
+          no_show_count: number
+          notes: string | null
+          phone: string
+          preferences: Json
+          visits_count: number
+        }
+        Insert: {
+          barbershop_id: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          last_visit_at?: string | null
+          name: string
+          no_show_count?: number
+          notes?: string | null
+          phone: string
+          preferences?: Json
+          visits_count?: number
+        }
+        Update: {
+          barbershop_id?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          last_visit_at?: string | null
+          name?: string
+          no_show_count?: number
+          notes?: string | null
+          phone?: string
+          preferences?: Json
+          visits_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "customers_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      haircuts: {
+        Row: {
+          barbershop_id: string
+          description: string | null
+          duration_min: number | null
+          id: string
+          is_active: boolean
+          name: string
+          photo_url: string | null
+          price_cents: number | null
+          service_id: string | null
+          sort_order: number
+        }
+        Insert: {
+          barbershop_id: string
+          description?: string | null
+          duration_min?: number | null
+          id?: string
+          is_active?: boolean
+          name: string
+          photo_url?: string | null
+          price_cents?: number | null
+          service_id?: string | null
+          sort_order?: number
+        }
+        Update: {
+          barbershop_id?: string
+          description?: string | null
+          duration_min?: number | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          photo_url?: string | null
+          price_cents?: number | null
+          service_id?: string | null
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "haircuts_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "haircuts_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          appointment_id: string | null
+          barbershop_id: string
+          channel: Database["public"]["Enums"]["notif_channel"]
+          error: string | null
+          id: string
+          payload: Json
+          recipient: string
+          scheduled_for: string
+          sent_at: string | null
+          status: Database["public"]["Enums"]["notif_status"]
+          template_key: string
+          waitlist_entry_id: string | null
+        }
+        Insert: {
+          appointment_id?: string | null
+          barbershop_id: string
+          channel: Database["public"]["Enums"]["notif_channel"]
+          error?: string | null
+          id?: string
+          payload?: Json
+          recipient: string
+          scheduled_for?: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["notif_status"]
+          template_key: string
+          waitlist_entry_id?: string | null
+        }
+        Update: {
+          appointment_id?: string | null
+          barbershop_id?: string
+          channel?: Database["public"]["Enums"]["notif_channel"]
+          error?: string | null
+          id?: string
+          payload?: Json
+          recipient?: string
+          scheduled_for?: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["notif_status"]
+          template_key?: string
+          waitlist_entry_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_waitlist_entry_id_fkey"
+            columns: ["waitlist_entry_id"]
+            isOneToOne: false
+            referencedRelation: "waitlist_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount_cents: number
+          appointment_id: string | null
+          barbershop_id: string
+          created_at: string
+          id: string
+          msisdn: string | null
+          provider: Database["public"]["Enums"]["payment_provider"]
+          provider_ref: string | null
+          raw: Json | null
+          status: Database["public"]["Enums"]["payment_state"]
+        }
+        Insert: {
+          amount_cents: number
+          appointment_id?: string | null
+          barbershop_id: string
+          created_at?: string
+          id?: string
+          msisdn?: string | null
+          provider: Database["public"]["Enums"]["payment_provider"]
+          provider_ref?: string | null
+          raw?: Json | null
+          status?: Database["public"]["Enums"]["payment_state"]
+        }
+        Update: {
+          amount_cents?: number
+          appointment_id?: string | null
+          barbershop_id?: string
+          created_at?: string
+          id?: string
+          msisdn?: string | null
+          provider?: Database["public"]["Enums"]["payment_provider"]
+          provider_ref?: string | null
+          raw?: Json | null
+          status?: Database["public"]["Enums"]["payment_state"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plans: {
+        Row: {
+          code: string
+          features: Json
+          id: string
+          is_active: boolean
+          max_barbers: number
+          name: string
+          price_cents: number
+        }
+        Insert: {
+          code: string
+          features?: Json
+          id?: string
+          is_active?: boolean
+          max_barbers?: number
+          name: string
+          price_cents?: number
+        }
+        Update: {
+          code?: string
+          features?: Json
+          id?: string
+          is_active?: boolean
+          max_barbers?: number
+          name?: string
+          price_cents?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          is_platform_admin: boolean
+          phone: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          is_platform_admin?: boolean
+          phone?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          is_platform_admin?: boolean
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          appointment_id: string
+          barber_id: string | null
+          barbershop_id: string
+          comment: string | null
+          created_at: string
+          id: string
+          is_published: boolean
+          rating: number
+        }
+        Insert: {
+          appointment_id: string
+          barber_id?: string | null
+          barbershop_id: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          rating: number
+        }
+        Update: {
+          appointment_id?: string
+          barber_id?: string | null
+          barbershop_id?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          rating?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: true
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_barber_id_fkey"
+            columns: ["barber_id"]
+            isOneToOne: false
+            referencedRelation: "barbers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      services: {
+        Row: {
+          barbershop_id: string
+          duration_min: number
+          id: string
+          is_active: boolean
+          name: string
+          price_cents: number
+          requires_deposit: boolean
+          sort_order: number
+        }
+        Insert: {
+          barbershop_id: string
+          duration_min: number
+          id?: string
+          is_active?: boolean
+          name: string
+          price_cents: number
+          requires_deposit?: boolean
+          sort_order?: number
+        }
+        Update: {
+          barbershop_id?: string
+          duration_min?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          price_cents?: number
+          requires_deposit?: boolean
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "services_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      time_blocks: {
+        Row: {
+          barber_id: string | null
+          barbershop_id: string
+          ends_at: string
+          id: string
+          note: string | null
+          reason: Database["public"]["Enums"]["block_reason"]
+          starts_at: string
+        }
+        Insert: {
+          barber_id?: string | null
+          barbershop_id: string
+          ends_at: string
+          id?: string
+          note?: string | null
+          reason?: Database["public"]["Enums"]["block_reason"]
+          starts_at: string
+        }
+        Update: {
+          barber_id?: string | null
+          barbershop_id?: string
+          ends_at?: string
+          id?: string
+          note?: string | null
+          reason?: Database["public"]["Enums"]["block_reason"]
+          starts_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "time_blocks_barber_id_fkey"
+            columns: ["barber_id"]
+            isOneToOne: false
+            referencedRelation: "barbers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_blocks_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      waitlist_entries: {
+        Row: {
+          barber_id: string | null
+          barbershop_id: string
+          created_at: string
+          customer_name: string
+          date_from: string | null
+          date_to: string | null
+          email: string | null
+          haircut_id: string | null
+          id: string
+          offer_barber_id: string | null
+          offer_expires_at: string | null
+          offer_slot_start: string | null
+          offer_token: string | null
+          period: string
+          phone: string
+          service_id: string
+          status: Database["public"]["Enums"]["waitlist_status"]
+        }
+        Insert: {
+          barber_id?: string | null
+          barbershop_id: string
+          created_at?: string
+          customer_name: string
+          date_from?: string | null
+          date_to?: string | null
+          email?: string | null
+          haircut_id?: string | null
+          id?: string
+          offer_barber_id?: string | null
+          offer_expires_at?: string | null
+          offer_slot_start?: string | null
+          offer_token?: string | null
+          period?: string
+          phone: string
+          service_id: string
+          status?: Database["public"]["Enums"]["waitlist_status"]
+        }
+        Update: {
+          barber_id?: string | null
+          barbershop_id?: string
+          created_at?: string
+          customer_name?: string
+          date_from?: string | null
+          date_to?: string | null
+          email?: string | null
+          haircut_id?: string | null
+          id?: string
+          offer_barber_id?: string | null
+          offer_expires_at?: string | null
+          offer_slot_start?: string | null
+          offer_token?: string | null
+          period?: string
+          phone?: string
+          service_id?: string
+          status?: Database["public"]["Enums"]["waitlist_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "waitlist_entries_barber_id_fkey"
+            columns: ["barber_id"]
+            isOneToOne: false
+            referencedRelation: "barbers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_haircut_id_fkey"
+            columns: ["haircut_id"]
+            isOneToOne: false
+            referencedRelation: "haircuts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      working_hours: {
+        Row: {
+          barber_id: string | null
+          barbershop_id: string
+          closes_at: string
+          id: string
+          is_closed: boolean
+          opens_at: string
+          weekday: number
+        }
+        Insert: {
+          barber_id?: string | null
+          barbershop_id: string
+          closes_at: string
+          id?: string
+          is_closed?: boolean
+          opens_at: string
+          weekday: number
+        }
+        Update: {
+          barber_id?: string | null
+          barbershop_id?: string
+          closes_at?: string
+          id?: string
+          is_closed?: boolean
+          opens_at?: string
+          weekday?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "working_hours_barber_id_fkey"
+            columns: ["barber_id"]
+            isOneToOne: false
+            referencedRelation: "barbers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "working_hours_barbershop_id_fkey"
+            columns: ["barbershop_id"]
+            isOneToOne: false
+            referencedRelation: "barbershops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +947,46 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role: "owner" | "manager" | "barber"
+      appointment_status:
+        | "pending"
+        | "confirmed"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
+        | "no_show"
+      block_reason:
+        | "lunch"
+        | "day_off"
+        | "holiday"
+        | "meeting"
+        | "maintenance"
+        | "absence"
+        | "other"
+      booking_source: "online" | "manual" | "waitlist"
+      cancellation_rule:
+        | "flex_2h"
+        | "moderate_6h"
+        | "strict_24h"
+        | "contact_only"
+      deposit_mode: "percent" | "fixed"
+      deposit_state:
+        | "not_required"
+        | "awaiting"
+        | "paid"
+        | "failed"
+        | "refunded"
+      notif_channel: "whatsapp" | "email"
+      notif_status: "queued" | "sent" | "failed" | "skipped"
+      payment_provider: "mpesa" | "emola"
+      payment_state: "pending" | "paid" | "failed" | "refunded"
+      shop_status: "trial" | "active" | "suspended" | "cancelled"
+      waitlist_status:
+        | "waiting"
+        | "offered"
+        | "converted"
+        | "expired"
+        | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +1113,46 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["owner", "manager", "barber"],
+      appointment_status: [
+        "pending",
+        "confirmed",
+        "in_progress",
+        "completed",
+        "cancelled",
+        "no_show",
+      ],
+      block_reason: [
+        "lunch",
+        "day_off",
+        "holiday",
+        "meeting",
+        "maintenance",
+        "absence",
+        "other",
+      ],
+      booking_source: ["online", "manual", "waitlist"],
+      cancellation_rule: [
+        "flex_2h",
+        "moderate_6h",
+        "strict_24h",
+        "contact_only",
+      ],
+      deposit_mode: ["percent", "fixed"],
+      deposit_state: ["not_required", "awaiting", "paid", "failed", "refunded"],
+      notif_channel: ["whatsapp", "email"],
+      notif_status: ["queued", "sent", "failed", "skipped"],
+      payment_provider: ["mpesa", "emola"],
+      payment_state: ["pending", "paid", "failed", "refunded"],
+      shop_status: ["trial", "active", "suspended", "cancelled"],
+      waitlist_status: [
+        "waiting",
+        "offered",
+        "converted",
+        "expired",
+        "cancelled",
+      ],
+    },
   },
 } as const

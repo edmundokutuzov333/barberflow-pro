@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789717009670,
+      "tag": "0000_barberos_core_schema",
+      "breakpoints": true
+    }
+  ]
 }
